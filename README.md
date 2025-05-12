@@ -5,7 +5,7 @@ This is a Flutter-based mobile/web application with authentication and task mana
 
 ---
 
-## Features
+## 🚀 Features
 
 - ✅ User Signup & Login using Parse Server
 - ✅ Add, Edit, Delete Tasks (CRUD)
@@ -19,7 +19,7 @@ This is a Flutter-based mobile/web application with authentication and task mana
 
 ---
 
-## Tech Stack
+## 📦 Tech Stack
 
 - **Flutter** (Mobile/Web)
 - **Back4App** (Parse Server SDK)
@@ -132,28 +132,28 @@ lib/
 ## 📷 Screenshots
 
 ### 🔹 Sign Up
-![Sign Up](screenshots\image.png)
+![Sign Up](screenshots/image.png)
 
 ### 🔹 Login
-![Login](screenshots\image-1.png)
+![Login](screenshots/image-1.png)
 
 ### 🔹 Home Page
-![Home Page](screenshots\image-2.png)
+![Home Page](screenshots/image-2.png)
 
 ### 🔹 Add Tasks
-![Add Tasks](screenshots\image-3.png)
+![Add Tasks](screenshots/image-3.png)
 
 ### 🔹 Tasks List
-![Tasks List](screenshots\image-4.png)
+![Tasks List](screenshots/image-4.png)
 
 ### 🔹 Delete Option
-![Delete Option](screenshots\image-5.png)
+![Delete Option](screenshots/image-5.png)
 
 ### 🔹 Profile Option
-![Profile Option](screenshots\image-6.png)
+![Profile Option](screenshots/image-6.png)
 
 ### 🔹 Save Profile
-![Save Profile](screenshots\image-7.png)
+![Save Profile](screenshots/image-7.png)
 ---
 
 ## 🔒 Permissions
