@@ -176,8 +176,8 @@ For iOS (in `Info.plist`):
 
 ## ✍️ Author
 
-**Your Name**  
-[GitHub](https://github.com/yourname) • [LinkedIn](https://linkedin.com/in/yourname)
+**G M Akshay Bhat**  
+[GitHub](https://github.com/GMAkshayBhat) • [LinkedIn](https://in.linkedin.com/in/g-m-akshay-bhat-358a32ba)
 
 ---
 
