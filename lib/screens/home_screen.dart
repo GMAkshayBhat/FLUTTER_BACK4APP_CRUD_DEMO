@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import '../models/task.dart';
 import '../widgets/task_item.dart';
@@ -335,66 +335,126 @@ Future<void> _showProfileDialog() async {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-  title: const Text('Tasks'),
-  actions: [
-    PopupMenuButton<String>(
-      icon: const Icon(Icons.account_circle), // 👤 user icon
-      onSelected: (value) {
-        switch (value) {
-          case 'profile':
-            _showProfileDialog(); // Show profile with change password + upload image
-            break;
-          case 'logout':
-            _signOut(); // Existing logout function
-            break;
-        }
-      },
-      itemBuilder: (BuildContext context) => [
-        const PopupMenuItem<String>(
-          value: 'profile',
-          child: Text('Profile'),
-        ),
-        const PopupMenuItem<String>(
-          value: 'logout',
-          child: Text('Logout'),
+ // Enhanced home screen with welcome message and progress bar
+@override
+Widget build(BuildContext context) {
+  double completedRatio = _tasks.isEmpty
+      ? 0
+      : _tasks.where((t) => t.completed).length / _tasks.length;
+
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Tasks'),
+      actions: [
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.account_circle),
+          onSelected: (value) {
+            if (value == 'profile') {
+              _showProfileDialog();
+            } else if (value == 'logout') {
+              _signOut();
+            }
+          },
+          itemBuilder: (context) => const [
+            PopupMenuItem(value: 'profile', child: Text('Profile')),
+            PopupMenuItem(value: 'logout', child: Text('Logout')),
+          ],
         ),
       ],
     ),
-  ],
-),
-
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _tasks.isEmpty
-              ? const Center(child: Text('No tasks found. Add a task!'))
-              : ListView.builder(
-                  itemCount: _tasks.length,
-                  itemBuilder: (context, index) {
-                    final task = _tasks[index];
-                    return TaskItem(
-                      task: task,
-                      onToggleCompleted: (bool value) {
-                        final updatedTask = Task(
-                          id: task.id,
-                          title: task.title,
-                          description: task.description,
-                          completed: value,
-                        );
-                        _updateTask(updatedTask);
-                      },
-                      onDelete: () => _deleteTask(task.id),
-                      onEdit: () => _showEditTaskDialog(task),
-                    );
-                  },
+    body: _isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 28,
+                      backgroundColor: Colors.indigo,
+                      child: Text('A',
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 24)),
+                    ),
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Welcome Back!',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        const Text(
+                          'Here are your tasks for today.',
+                          style:
+                              TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
+              ),
+              const Divider(thickness: 1),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Your Progress',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 6),
+                    LinearProgressIndicator(
+                      value: completedRatio,
+                      backgroundColor: Colors.grey[300],
+                      color: Colors.indigo,
+                      minHeight: 6,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: _tasks.isEmpty
+                    ? const Center(child: Text('No tasks found. Add a task!'))
+                    : ListView.builder(
+                        itemCount: _tasks.length,
+                        itemBuilder: (context, index) {
+                          final task = _tasks[index];
+                          return TaskItem(
+                            task: task,
+                            onToggleCompleted: (bool value) {
+                              final updatedTask = Task(
+                                id: task.id,
+                                title: task.title,
+                                description: task.description,
+                                completed: value,
+                              );
+                              _updateTask(updatedTask);
+                            },
+                            onDelete: () => _deleteTask(task.id),
+                            onEdit: () => _showEditTaskDialog(task),
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddTaskDialog,
         child: const Icon(Icons.add),
-      ),
-    );
-  }
+      
+      // label: const Text('Add Task'),
+      // backgroundColor: Colors.indigo,
+    ),
+  );
+}
 }

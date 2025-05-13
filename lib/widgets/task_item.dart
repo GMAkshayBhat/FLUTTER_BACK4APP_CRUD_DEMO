@@ -20,7 +20,7 @@ class TaskItem extends StatelessWidget {
     return Dismissible(
       key: Key(task.id),
       background: Container(
-        color: Colors.red,
+        color: Colors.redAccent,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20.0),
         child: const Icon(Icons.delete, color: Colors.white),
@@ -28,25 +28,31 @@ class TaskItem extends StatelessWidget {
       direction: DismissDirection.endToStart,
       onDismissed: (_) => onDelete(),
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
         child: ListTile(
           leading: Checkbox(
             value: task.completed,
             onChanged: (value) => onToggleCompleted(value ?? false),
+            activeColor: Colors.indigo,
           ),
           title: Text(
             task.title,
             style: TextStyle(
-              decoration: task.completed ? TextDecoration.lineThrough : null,
+              fontWeight: FontWeight.bold,
+              decoration:
+                  task.completed ? TextDecoration.lineThrough : TextDecoration.none,
             ),
           ),
           subtitle: Text(
             task.description,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: Colors.grey),
           ),
           trailing: IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const Icon(Icons.edit, color: Colors.indigo),
             onPressed: onEdit,
           ),
         ),

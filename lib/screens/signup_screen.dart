@@ -1,6 +1,7 @@
+// File: screens/signup_screen.dart
 import 'package:flutter/material.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
-
+import 'package:intl/intl.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -59,8 +60,25 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  String _getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Good Morning ☀️';
+    if (hour < 17) return 'Good Afternoon 🌤️';
+    return 'Good Evening 🌙';
+  }
+
+  String _getThought() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'New beginnings start with belief. Believe in yourself!';
+    if (hour < 17) return 'Keep building towards your dreams — one step at a time.';
+    return 'Tomorrow is built on the steps you take today. Keep going!';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final greeting = _getGreeting();
+    final thought = _getThought();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Up'),
@@ -70,6 +88,39 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const CircleAvatar(
+              radius: 40,
+              child: Text(
+                'A',
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Column(
+              children: [
+                Text(
+                  "Welcome to ToDo App!!",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  "Organize your day, one task at a time.",
+                  style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic, color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              greeting,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              thought,
+              style: const TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32.0),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
@@ -99,9 +150,9 @@ class _SignupScreenState extends State<SignupScreen> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _signUp,
-                    child: const Text('Sign Up'),
-                  ),
+              onPressed: _signUp,
+              child: const Text('Sign Up'),
+            ),
             const SizedBox(height: 16.0),
             TextButton(
               onPressed: () {
