@@ -1,4 +1,3 @@
-// File: screens/signup_screen.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
@@ -82,18 +81,21 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Up'),
+        backgroundColor: Color.fromARGB(255, 245, 226, 245),
       ),
-      body: Padding(
+      body: Container(
+      color: Color.fromARGB(255, 245, 226, 245),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircleAvatar(
               radius: 40,
-              child: Text(
-                'A',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
+              child: Icon(
+    Icons.checklist,
+    size: 40,
+    color: Colors.indigo,
+  ),
             ),
             const SizedBox(height: 16.0),
             Column(

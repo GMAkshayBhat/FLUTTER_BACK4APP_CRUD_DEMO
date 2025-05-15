@@ -1,4 +1,3 @@
-// File: screens/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
@@ -92,19 +91,22 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        backgroundColor: Color.fromARGB(255, 245, 226, 245),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+  color: Color.fromARGB(255, 245, 226, 245), 
+  padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App logo
             const CircleAvatar(
               radius: 40,
-              child: Text(
-                'A',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
+              child: Icon(
+    Icons.checklist,
+    size: 40,
+    color: Colors.indigo,
+  ),
             ),
             const SizedBox(height: 16.0),
             Column(

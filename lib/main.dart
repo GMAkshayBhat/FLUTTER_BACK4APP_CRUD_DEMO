@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'screens/login_screen.dart';
+import 'screens/profile_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/home_screen.dart';
 
@@ -10,10 +11,14 @@ void main() async {
   
   // Initialize Back4App connection
   await Parse().initialize(
-    'LUOpAeXkNC44U8UVmovqjio4rlE1C4utbTtlObWw',  // Replace with your Back4App Application ID
-    'https://parseapi.back4app.com/',  // Replace with your Back4App Server URL, typically https://parseapi.back4app.com/
-    clientKey: 'jrLQbcmj3qICZjm3n1ISn4UUh98idI40HL0HhqpI',  // Replace with your Back4App Client Key
-    debug: true, // Set to false in production
+     // Replace with your Back4App Application ID
+    'LUOpAeXkNC44U8UVmovqjio4rlE1C4utbTtlObWw', 
+     // Replace with your Back4App Server URL, typically https://parseapi.back4app.com/
+    'https://parseapi.back4app.com/', 
+     // Replace with your Back4App Client Key
+    clientKey: 'jrLQbcmj3qICZjm3n1ISn4UUh98idI40HL0HhqpI', 
+    // Set to false in production
+    debug: false, 
     autoSendSessionId: true,
   );
   
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/home': (context) => const HomeScreen(),
+         '/profile': (_) => const ProfileScreen(),
       },
     );
   }

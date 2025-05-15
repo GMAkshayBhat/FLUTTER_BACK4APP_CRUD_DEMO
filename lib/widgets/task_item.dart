@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../models/task.dart';
+import 'package:intl/intl.dart';
 
 class TaskItem extends StatelessWidget {
   final Task task;
   final Function(bool) onToggleCompleted;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
+  final VoidCallback onEditDueDate;
 
   const TaskItem({
     Key? key,
@@ -13,10 +15,13 @@ class TaskItem extends StatelessWidget {
     required this.onToggleCompleted,
     required this.onDelete,
     required this.onEdit,
+    required this.onEditDueDate,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bool isOverdue = task.dueDate != null && task.dueDate!.isBefore(DateTime.now()) && !task.completed;
+
     return Dismissible(
       key: Key(task.id),
       background: Container(
@@ -41,15 +46,32 @@ class TaskItem extends StatelessWidget {
             task.title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              decoration:
-                  task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+              decoration: task.completed ? TextDecoration.lineThrough : null,
+              color: isOverdue ? Colors.red : null,
             ),
           ),
-          subtitle: Text(
-            task.description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Colors.grey),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                task.description,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Colors.grey),
+              ),
+              if (task.dueDate != null)
+                GestureDetector(
+                  onTap: onEditDueDate,
+                  child: Text(
+                    'Due: ${DateFormat.yMMMd().format(task.dueDate!.toLocal())}',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isOverdue ? Colors.red : Colors.teal,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+            ],
           ),
           trailing: IconButton(
             icon: const Icon(Icons.edit, color: Colors.indigo),
